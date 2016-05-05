@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>taskList</title>
+    <meta charset="utf-8" />
+    <link href="bootstrap.min.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" ng-app="taskList">
+        <div ng-controller="TaskController">
+            <h1>TODOLIST</h1>
+            <form ng-submit="addTask()">
+                <input type="text" class="form-control" ng-model="taskTitle" size="30" placeholder="标题" ng-required="true" />
+                <input type="text" class="form-control" ng-model="taskText" size="30" placeholder="内容" ng-required="true" />
+                <input type="text" class="form-control" ng-model="taskDue" size="30" placeholder="截止日期(YYYYmmdd)" ng-required="true" />
+                <input type="submit" class="form-control" size="30"/>
+            </form>
+            <ul class="taskList">
+                <li ng-repeat="task in taskList | filter:query ">
+                    <div class="checkbox">
+                        <label>
+                            <span>{{task.text}}:</span><span>{{task.title}}</span>
+                        </label>
+                        <button type="button" class="close" ng-click="removeTask(task)" data-dismiss="alert">×</button>
+                        <span class="pull-right">截止日期：{{task.due}}</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="count">
+                未逾期：<span class="badge">{{count()}}</span>，已逾期：<span class="badge">{{countDone()}}</span>，总数：<span class="badge">{{taskList.length}}</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="libs/angular.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
